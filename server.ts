@@ -9,6 +9,7 @@ import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 
 import * as express from 'express';
 import { join } from 'path';
+import * as proxy from 'http-proxy-middleware';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -44,9 +45,16 @@ app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));
 
 // Example Express Rest API endpoints
-app.get('/api/**', (req, res) => {
-  res.send({ok: 'ok'});
-});
+const options = {
+  target: 'https://api-zikoss.herokuapp.com',
+  changeOrigin: true,
+  pathRewrite: {
+      '^/api': ''
+  }
+};
+
+// Proxy api
+app.use('/api', proxy(options));
 
 // Server static files from /browser
 app.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {

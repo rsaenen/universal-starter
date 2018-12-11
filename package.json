@@ -46,6 +46,7 @@
     "@nguniversal/module-map-ngfactory-loader": "^7.0.2",
     "core-js": "^2.6.0",
     "express": "^4.16.4",
+    "http-proxy-middleware": "^0.19.1",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
     "zone.js": "^0.8.26"
